@@ -11,7 +11,7 @@ fns.replyWith = {
   unauthorized: (h) => Boom.unauthorized(),
   found: (record, h) => (record ? h.response(record) : Boom.notFound()),
   notFound: (h) => fns.replyWith.found(null, h),
-  deleted: (record, h) => h.response({ message: "deleted", ...record }),
+  deleted: (record, h) => h.response({ message: "deleted", ...record })
 };
 
 fns.handleErr = (err = {}, h) => {
@@ -29,6 +29,10 @@ fns.handleErr = (err = {}, h) => {
   }
 
   return Boom.badRequest(err.message);
+};
+
+fns.isAnAdmin =  function ({roles}) {
+  return roles.indexOf("admin") !== -1
 };
 
 module.exports = fns;

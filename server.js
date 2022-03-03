@@ -8,6 +8,7 @@ const Hapi = require("@hapi/hapi");
 const AuthJWT = require("hapi-auth-jwt2");
 const { validateJwt } = require("./config/auth/validate.jwt.js");
 
+
 const serverOptions = {
   port: process.env.PORT,
   address: "0.0.0.0",

@@ -9,7 +9,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha ./test --exit",
     "test:watch": "NODE_ENV=test mocha --watch ./test ./ --file ./test/config/mocha.setup.js",
-    "start": "node server.js"
+    "start": "set NODE_ENV=test&&node server.js"
   },
   "repository": {
     "type": "git",

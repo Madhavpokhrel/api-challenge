@@ -21,4 +21,35 @@ module.exports = [
       }
     },
   },
+
+ 
+
+   // Read a user given user ID
+   {
+    method: "GET",
+    path: "/users/{userId?}",
+    config: {
+      description: "Read a user given user ID",
+      tags: ["Users"],
+    },
+    handler: async (request, h) => {
+
+      const {userId} = request.params;
+
+      try {
+        const { user } = request.auth.credentials;
+        const resRequester = await user.findComplete();
+       
+        if(!routeUtils.isAnAdmin(resRequester)) return routeUtils.replyWith.unauthorized()
+        const resUser = await user.findOne(userId);
+        return routeUtils.replyWith.found(resUser, h);
+      } catch (err) {
+        return routeUtils.handleErr(err, h);
+      }
+    },
+
+    
+  },
+
+ 
 ];

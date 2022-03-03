@@ -74,6 +74,31 @@ User.prototype.findComplete = async function () {
   };
 };
 
+
+
+User.prototype.findOne = async function (userId) {
+ 
+  
+  
+  const userResult = await sequelize.query(
+    `SELECT * from "Users" u WHERE u.id = :userId `,
+    { replacements: { userId: userId } }
+  );
+  
+  const user = {...userResult[0][0]}
+  
+
+  const rolesResult = await sequelize.query(
+    `SELECT r.name FROM "Roles" r JOIN "UserRoles" ur ON r.id = ur.role_id WHERE ur.user_id = :userId`,
+    { replacements: { userId: user.id } }
+  );
+
+  return {
+    ...user,
+    roles: _.map(rolesResult[0], "name"),
+  };
+};
+
 /**
  * Create and return a JWT access token for a user
  */

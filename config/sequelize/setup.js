@@ -1,7 +1,10 @@
 "use strict";
 
 const Sequelize = require("sequelize");
+
+
 const config = require("../db.config.js")[process.env.NODE_ENV];
+
 
 let sequelize = new Sequelize(
   config.database,
@@ -16,6 +19,7 @@ let sequelize = new Sequelize(
     },
   }
 );
+
 
 sequelize
   .authenticate()
